@@ -1,5 +1,7 @@
 // Golbar Var ----|
 let mokeponSelected;
+let playerVitalPoints = 2;
+let botVitalPoints = 2;
 // Golbar Var ---->
 
 
@@ -15,6 +17,10 @@ const Hipodoge = document.querySelector("#Hipodoge")
 const Capipepo = document.querySelector("#Capipepo")
 const Ratigueya = document.querySelector("#Ratigueya")
 const mokeponSubmitBtn = document.querySelector(".Mokepon-selection__btn")
+//Attacks
+const fireAttack = document.querySelector(".Attack-selection_Fire")
+const waterAttack = document.querySelector(".Attack-selection_Water")
+const earthAttack = document.querySelector(".Attack-selection_Earth")
 // Document Element Assignments ---->
 
 
@@ -48,6 +54,10 @@ function selectAttack() {
     stats.classList.remove("inactive");
     attackSelection.classList.remove("inactive");
 }
+// Display Attack (4).
+function displayAttack() {
+    console.log(this.name)
+}
 // Function Definitions ---->
 
 
@@ -57,6 +67,11 @@ window.addEventListener("load",initialCoinditions)
 // 
 // Mokepon Selection Button 
 mokeponSubmitBtn.addEventListener("click",selectMokepon)
+// 
+// Attack Buttons 
+fireAttack.addEventListener("click",displayAttack)
+waterAttack.addEventListener("click",displayAttack)
+earthAttack.addEventListener("click",displayAttack)
 // 
 // Event listeners ---->
 
