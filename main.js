@@ -61,6 +61,23 @@ function selectAttack() {
     stats.classList.remove("inactive");// ---> Reset
     attackSelection.classList.remove("inactive");// ---> Reset
 }
+// Match Result (4).
+function matchResult() {
+    if ((player==="Water" && bot==="Fire")||(player==="Earth" && bot==="Water")||(player==="Fire" && bot==="Earth")){
+        botVitalPoints--
+        resultMessage.innerHTML=resultMessages.won
+    }
+    if(player===bot){
+        resultMessage.innerHTML=resultMessages.draw
+    }
+    else{
+        playerVitalPoints--
+        resultMessage.innerHTML=resultMessages.lose
+    }
+    attackMessage.classList.remove("inactive");
+    playerStats.innerHTML=playerVitalPoints
+    botStats.innerHTML=botVitalPoints
+}
 // Function Definitions ---->
 
 
