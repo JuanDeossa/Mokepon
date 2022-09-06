@@ -4,7 +4,11 @@
 
 
 // Document Element Assignments ----|
-
+const mokeponSelection = document.querySelector(".Mokepon-selection")
+const stats = document.querySelector(".Stats")
+const attackSelection = document.querySelector(".Attack-selection")
+const attackMessage = document.querySelector(".Attack-message")
+const restart = document.querySelector(".Restart")
 // Document Element Assignments ---->
 
 
@@ -15,6 +19,8 @@ window.addEventListener("load",initialCoinditions)
 
 
 // Function Definitions ----|
-
+function initialCoinditions() {
+    
+}
 // Function Definitions ---->
 
