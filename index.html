@@ -8,6 +8,37 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <section>
+        <h1>Mokepon</h1>
+        <p>Choose your fighter</p>
+    </section>
+    <section class="Mokepon-selection">
+        <label for="Hipodoge">Hipodoge
+        <input id="Hipodoge" type="radio" name="Mokepon">
+        <label for="Capipepo">Capipepo
+        <input id="Capipepo" type="radio" name="Mokepon">
+        <label for="Ratigueya">Ratigueya
+        <input id="Ratigueya" type="radio" name="Mokepon">
+    </section>   
+    <section class="Stats">
+        <p>Vital points.</p>
+        <p>You: <span>5</span></p>
+        <p>Opoonent: <span>5</span></p>
+    </section>
+    <section class="Attack-selection">
+        <p>choose an attack type</p>
+        <button class="Attack-selection_Fire">Fire 🔥</button>
+        <button class="Attack-selection_Water">Water 💧</button>
+        <button class="Attack-selection_Earth">Earth 🎍</button>
+    </section>    
+    <section class="Attack-message">
+        <p class="Attack-message__Player">You use <span>fire</span> to attack!</p>
+        <p class="Attack-message__Bot">Your opponent use <span>fire</span> to attack You!</p>
+        <p class="Attack-message__Result">Result Message</p>
+    </section>
+    <section class="Restart">
+        <button class="Restart__button">Play Again.</button>
+    </section>
     <script src="./main.js"></script>
 </body>
 </html>
