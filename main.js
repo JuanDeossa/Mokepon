@@ -14,16 +14,12 @@ const restart = document.querySelector(".Restart")
 const Hipodoge = document.querySelector("#Hipodoge")
 const Capipepo = document.querySelector("#Capipepo")
 const Ratigueya = document.querySelector("#Ratigueya")
+const mokeponSubmitBtn = document.querySelector(".Mokepon-selection__btn")
 // Document Element Assignments ---->
 
 
-// Event listeners ----|
-// Initial Loadpage
-window.addEventListener("load",initialCoinditions)
-// Event listeners ---->
-
-
 // Function Definitions ----|
+//Initial Conditions (1).
 function initialCoinditions() {
     stats.classList.add("inactive");
     attackSelection.classList.add("inactive");
@@ -32,3 +28,15 @@ function initialCoinditions() {
 }
 // Function Definitions ---->
 
+
+// Event listeners ----|
+// Initial Loadpage
+window.addEventListener("load",initialCoinditions)
+// 
+// Event listeners ---->
+
+
+
+// Code Flow ----|
+
+// Code Flow ---->
