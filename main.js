@@ -2,6 +2,12 @@
 let mokeponSelected;
 let playerVitalPoints = 2;
 let botVitalPoints = 2;
+let Attacks = ["Fire","Water","Earth"];
+const resultMessages = {
+    won: "You Won",
+    lose: "You Lose",
+    draw: "Draw"
+}
 // Golbar Var ---->
 
 
@@ -31,18 +37,19 @@ function initialCoinditions() {
     attackSelection.classList.add("inactive");
     attackMessage.classList.add("inactive");
     restart.classList.add("inactive");
+    // ---> OUT
 }
 //Select Mokepon (2).
 function selectMokepon() {
     if (Hipodoge.checked) {
         mokeponSelected = Hipodoge.id
-        selectAttack()
+        selectAttack() // ---> OUT
     }else if (Capipepo.checked) {
         mokeponSelected = Capipepo.id
-        selectAttack()
+        selectAttack() // ---> OUT
     }else if (Ratigueya.checked) {
         mokeponSelected = Ratigueya.id
-        selectAttack()
+        selectAttack() // ---> OUT
     }else {
         alert("Choose a Mokepon");
     }
@@ -50,13 +57,9 @@ function selectMokepon() {
 }
 // Select Attack (3).
 function selectAttack() {
-    mokeponSelection.classList.add("inactive")
-    stats.classList.remove("inactive");
-    attackSelection.classList.remove("inactive");
-}
-// Display Attack (4).
-function displayAttack() {
-    console.log(this.name)
+    mokeponSelection.classList.add("inactive")// ---> Reset
+    stats.classList.remove("inactive");// ---> Reset
+    attackSelection.classList.remove("inactive");// ---> Reset
 }
 // Function Definitions ---->
 
@@ -69,9 +72,9 @@ window.addEventListener("load",initialCoinditions)
 mokeponSubmitBtn.addEventListener("click",selectMokepon)
 // 
 // Attack Buttons 
-fireAttack.addEventListener("click",displayAttack)
-waterAttack.addEventListener("click",displayAttack)
-earthAttack.addEventListener("click",displayAttack)
+fireAttack.addEventListener("click",matchResult)
+waterAttack.addEventListener("click",matchResult)
+earthAttack.addEventListener("click",matchResult)
 // 
 // Event listeners ---->
 
