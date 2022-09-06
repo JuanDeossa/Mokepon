@@ -20,7 +20,10 @@ window.addEventListener("load",initialCoinditions)
 
 // Function Definitions ----|
 function initialCoinditions() {
-    
+    stats.classList.add("inactive");
+    attackSelection.classList.add("inactive");
+    attackMessage.classList.add("inactive");
+    restart.classList.add("inactive");
 }
 // Function Definitions ---->
 
