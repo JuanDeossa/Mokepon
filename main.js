@@ -17,9 +17,10 @@ const resultMessages = {
     Winner: ""
 }
 //
-let mokeponSelected;
+let mokeponPlayerSelected;
+let mokeponAISelected;
 let playerVitalPoints = 2
-let botVitalPoints = 2
+let AIVitalPoints = 2
 let Attacks = ["Fire","Water","Earth"]
 let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
 let botAttackSelected
@@ -67,13 +68,13 @@ function initialCoinditions() {
 // Select Mokepon (2).
 function selectMokepon() {
     if (Hipodoge.checked) {
-        mokeponSelected = Hipodoge.id
+        mokeponPlayerSelected = Hipodoge.id
         selectAttack() // ---> OUT
     }else if (Capipepo.checked) {
-        mokeponSelected = Capipepo.id
+        mokeponPlayerSelected = Capipepo.id
         selectAttack() // ---> OUT
     }else if (Ratigueya.checked) {
-        mokeponSelected = Ratigueya.id
+        mokeponPlayerSelected = Ratigueya.id
         selectAttack() // ---> OUT
     }else {
         alert("Choose a Mokepon");
@@ -82,10 +83,10 @@ function selectMokepon() {
 // Select Attack (3).
 function selectAttack() {
     for (const iterator of playerName) {
-        iterator.innerHTML=mokeponSelected
+        iterator.innerHTML=mokeponPlayerSelected
     }
     playerStats.innerHTML=playerVitalPoints
-    botStats.innerHTML=botVitalPoints   
+    botStats.innerHTML=AIVitalPoints   
     const botName$=randomItem(Mokepones);
     for (const iterator of botName) {
         iterator.innerHTML=botName$
@@ -99,7 +100,7 @@ function matchResult() {
     let player = this.name
     let bot = randomItem(Attacks);
     if ((player==="Water" && bot==="Fire")||(player==="Earth" && bot==="Water")||(player==="Fire" && bot==="Earth")){
-        botVitalPoints--
+        AIVitalPoints--
         resultMessage.innerHTML=resultMessages.won
     }
     else if(player===bot){
@@ -109,7 +110,7 @@ function matchResult() {
         playerVitalPoints--
         resultMessage.innerHTML=resultMessages.lose
     }
-    if ((playerVitalPoints===0)||(botVitalPoints===0)) {     
+    if ((playerVitalPoints===0)||(AIVitalPoints===0)) {     
         attackSelection.classList.add("inactive")
         restart.classList.remove("inactive")
     }
@@ -117,12 +118,12 @@ function matchResult() {
     playerAttack.innerHTML=player
     botAttack.innerHTML=bot
     playerStats.innerHTML=playerVitalPoints
-    botStats.innerHTML=botVitalPoints
+    botStats.innerHTML=AIVitalPoints
 }
 // Restart Waiting (5).
 function restartGame() {
     playerVitalPoints = 2;
-    botVitalPoints = 2;
+    AIVitalPoints = 2;
     initialCoinditions()
 }
 // Random Item
