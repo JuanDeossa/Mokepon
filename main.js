@@ -1,15 +1,4 @@
 // Golbar Var ----|
-let mokeponSelected;
-let playerVitalPoints = 2
-let botVitalPoints = 2
-let Attacks = ["Fire","Water","Earth"]
-let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
-let botAttackSelected
-const resultMessages = {
-    won: "You Won",
-    lose: "You Lose",
-    draw: "Draw"
-}
 class Mokepon{
     constructor(name,lifes,attacks,image){
         this.name=name,
@@ -18,24 +7,22 @@ class Mokepon{
         this.image=image
     }
 }
-const HypoDoggo = new Mokepon(
-    HypoDoggo,
-    5,
-    [],
-    "https://i.postimg.cc/v4hyPMsB/Hypo-Doggo.png"
-);
-const GreeMster = new Mokepon(
-    GreeMster,
-    5,
-    [],
-    "https://i.postimg.cc/SXKh35SG/Gree-Mster.png"
-);
-const FyreRatt = new Mokepon(
-    FyreRatt,
-    5,
-    [],
-    "https://i.postimg.cc/d7SYYBDc/FyreRatt.png"
-);
+const HypoDoggo = new Mokepon("HypoDoggo",5,[],"https://i.postimg.cc/v4hyPMsB/Hypo-Doggo.png")
+const GreeMster = new Mokepon("GreeMster",5,[],"https://i.postimg.cc/SXKh35SG/Gree-Mster.png")
+const FyreRatt = new Mokepon("FyreRatt",5,[],"https://i.postimg.cc/d7SYYBDc/FyreRatt.png")
+const resultMessages = {
+    won: "You Won",
+    lose: "You Lose",
+    draw: "Draw",
+    Winner: ""
+}
+//
+let mokeponSelected;
+let playerVitalPoints = 2
+let botVitalPoints = 2
+let Attacks = ["Fire","Water","Earth"]
+let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
+let botAttackSelected
 // Golbar Var ---->
 
 
