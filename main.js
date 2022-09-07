@@ -26,6 +26,29 @@ let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
 let botAttackSelected
 // Golbar Var ---->
 
+//
+HypoDoggo.attacks.push(
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+)
+GreeMster.attacks.push(
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+)
+FyreRatt.attacks.push(
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+)
+//
 
 // Document Element Assignments ----|
 //Sections
