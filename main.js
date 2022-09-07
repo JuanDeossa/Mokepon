@@ -10,6 +10,14 @@ const resultMessages = {
     lose: "You Lose",
     draw: "Draw"
 }
+class Mokepon{
+    constructor(name,lifes,attacks,image){
+        this.name=name,
+        this.lifes=lifes,
+        this.attacks=attacks,
+        this.image=image
+    }
+}
 // Golbar Var ---->
 
 
@@ -35,8 +43,8 @@ const earthAttack = document.querySelector(".Attack-selection_Earth")
 const playerAttack = document.querySelector(".Attack-message__player")
 const botAttack = document.querySelector(".Attack-message__bot")
 //Message
-const playerName = document.querySelector(".Player-Name")
-const botName = document.querySelector(".Bot-Name")
+const playerName = document.querySelectorAll(".Player-Name")
+const botName = document.querySelectorAll(".Bot-Name")
 const resultMessage = document.querySelector(".Attack-message__Result")
 // Document Element Assignments ---->
 
@@ -68,10 +76,15 @@ function selectMokepon() {
 }
 // Select Attack (3).
 function selectAttack() {
+    for (const iterator of playerName) {
+        iterator.innerHTML=mokeponSelected
+    }
     playerStats.innerHTML=playerVitalPoints
     botStats.innerHTML=botVitalPoints   
-    playerName.innerHTML=mokeponSelected;
-    botName.innerHTML=randomItem(Mokepones);
+    const botName$=randomItem(Mokepones);
+    for (const iterator of botName) {
+        iterator.innerHTML=botName$
+    }
     mokeponSelection.classList.add("inactive")// ---> Reset
     stats.classList.remove("inactive");// ---> Reset
     attackSelection.classList.remove("inactive");// ---> Reset
@@ -136,3 +149,5 @@ restart.addEventListener("click",restartGame)
 // Code Flow ----|
 
 // Code Flow ---->
+
+
