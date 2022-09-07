@@ -17,46 +17,25 @@ const resultMessages = {
     Winner: ""
 }
 //
+let mokeponDB=[]
 let mokeponPlayerSelected;
-let mokeponAISelected;
 let playerVitalPoints = 2
+let mokeponAISelected;
 let AIVitalPoints = 2
+let playerAttackSelected
+let AIAttackSelected
 let Attacks = ["Fire","Water","Earth"]
 let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
-let botAttackSelected
 // Golbar Var ---->
 
-//
-HypoDoggo.attacks.push(
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-)
-GreeMster.attacks.push(
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-)
-FyreRatt.attacks.push(
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-)
-//
 
 // Document Element Assignments ----|
 //Sections
-const mokeponSelection = document.querySelector(".Mokepon-selection")
-const stats = document.querySelector(".Stats")
-const attackSelection = document.querySelector(".Attack-selection")
-const attackMessage = document.querySelector(".Attack-message")
-const restart = document.querySelector(".Restart")
+const mokeponSelectionSection = document.querySelector(".Mokepon-selection")
+const statsSection = document.querySelector(".Stats")
+const attackSelectionSection = document.querySelector(".Attack-selection")
+const matchMessageSection = document.querySelector(".Match-message")
+const restartSection = document.querySelector(".Restart")
 //Stats
 const playerStats = document.querySelector(".Stats__player")
 const botStats = document.querySelector(".Stats__bot")
@@ -69,23 +48,23 @@ const mokeponSubmitBtn = document.querySelector(".Mokepon-selection__btn")
 const fireAttack = document.querySelector(".Attack-selection_Fire")
 const waterAttack = document.querySelector(".Attack-selection_Water")
 const earthAttack = document.querySelector(".Attack-selection_Earth")
-const playerAttack = document.querySelector(".Attack-message__player")
-const botAttack = document.querySelector(".Attack-message__bot")
+const playerAttack = document.querySelector(".Match-message__player")
+const botAttack = document.querySelector(".Match-message__bot")
 //Message
 const playerName = document.querySelectorAll(".Player-Name")
 const botName = document.querySelectorAll(".Bot-Name")
-const resultMessage = document.querySelector(".Attack-message__Result")
+const resultMessage = document.querySelector(".Match-message__Result")
 // Document Element Assignments ---->
 
 
 // Function Definitions ----|
 // Initial Conditions (1).
 function initialCoinditions() {
-    mokeponSelection.classList.remove("inactive")
-    stats.classList.add("inactive");
-    attackSelection.classList.add("inactive");
-    attackMessage.classList.add("inactive");
-    restart.classList.add("inactive");
+    mokeponSelectionSection.classList.remove("inactive")
+    statsSection.classList.add("inactive");
+    attackSelectionSection.classList.add("inactive");
+    matchMessageSection.classList.add("inactive");
+    restartSection.classList.add("inactive");
     // ---> OUT
 }
 // Select Mokepon (2).
@@ -114,19 +93,19 @@ function selectAttack() {
     for (const iterator of botName) {
         iterator.innerHTML=botName$
     }
-    mokeponSelection.classList.add("inactive")// ---> Reset
-    stats.classList.remove("inactive");// ---> Reset
-    attackSelection.classList.remove("inactive");// ---> Reset
+    mokeponSelectionSection.classList.add("inactive")// ---> Reset
+    statsSection.classList.remove("inactive");// ---> Reset
+    attackSelectionSection.classList.remove("inactive");// ---> Reset
 }
 // Match Result (4).
 function matchResult() {        
-    let player = this.name
-    let bot = randomItem(Attacks);
-    if ((player==="Water" && bot==="Fire")||(player==="Earth" && bot==="Water")||(player==="Fire" && bot==="Earth")){
+    let playerAttackSelected = this.name
+    let AIAttackSelected = randomItem(Attacks);
+    if ((playerAttackSelected==="Water" && AIAttackSelected==="Fire")||(playerAttackSelected==="Earth" && AIAttackSelected==="Water")||(playerAttackSelected==="Fire" && AIAttackSelected==="Earth")){
         AIVitalPoints--
         resultMessage.innerHTML=resultMessages.won
     }
-    else if(player===bot){
+    else if(playerAttackSelected===AIAttackSelected){
         resultMessage.innerHTML=resultMessages.draw
     }
     else{
@@ -134,12 +113,12 @@ function matchResult() {
         resultMessage.innerHTML=resultMessages.lose
     }
     if ((playerVitalPoints===0)||(AIVitalPoints===0)) {     
-        attackSelection.classList.add("inactive")
-        restart.classList.remove("inactive")
+        attackSelectionSection.classList.add("inactive")
+        restartSection.classList.remove("inactive")
     }
-    attackMessage.classList.remove("inactive");
-    playerAttack.innerHTML=player
-    botAttack.innerHTML=bot
+    matchMessageSection.classList.remove("inactive");
+    playerAttack.innerHTML=playerAttackSelected
+    botAttack.innerHTML=AIAttackSelected
     playerStats.innerHTML=playerVitalPoints
     botStats.innerHTML=AIVitalPoints
 }
@@ -169,14 +148,35 @@ waterAttack.addEventListener("click",matchResult)
 earthAttack.addEventListener("click",matchResult)
 //
 // Restart Game
-restart.addEventListener("click",restartGame) 
+restartSection.addEventListener("click",restartGame) 
 //
 // Event listeners ---->
 
 
 
 // Code Flow ----|
-
+mokeponDB.push(HypoDoggo,GreeMster,FyreRatt)
+HypoDoggo.attacks.push(
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+)
+GreeMster.attacks.push(
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+)
+FyreRatt.attacks.push(
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Fire  🔥", id: "Fire-Btn"},
+    {type:"Water 💧", id: "Water-Btn"},
+    {type:"Earth 🎍", id: "Earth-Btn"},
+)
 // Code Flow ---->
 
 
