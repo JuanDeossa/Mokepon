@@ -18,6 +18,24 @@ class Mokepon{
         this.image=image
     }
 }
+const HypoDoggo = new Mokepon(
+    HypoDoggo,
+    5,
+    [],
+    "https://i.postimg.cc/v4hyPMsB/Hypo-Doggo.png"
+);
+const GreeMster = new Mokepon(
+    GreeMster,
+    5,
+    [],
+    "https://i.postimg.cc/SXKh35SG/Gree-Mster.png"
+);
+const FyreRatt = new Mokepon(
+    FyreRatt,
+    5,
+    [],
+    "https://i.postimg.cc/d7SYYBDc/FyreRatt.png"
+);
 // Golbar Var ---->
 
 
