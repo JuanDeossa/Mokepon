@@ -1,4 +1,4 @@
-// Golbar Var ----|
+// Global Var ----|
 class Mokepon{
     constructor(name,lifes,attacks,image){
         this.name=name,
@@ -14,7 +14,8 @@ const resultMessages = {
     won: "You Won",
     lose: "You Lose",
     draw: "Draw",
-    Winner: ""
+    Winner: "",
+    Unselected: "Please, select a Mokepon"
 }
 //
 let mokeponDB=[]
@@ -26,11 +27,12 @@ let playerAttackSelected
 let AIAttackSelected
 let Attacks = ["Fire","Water","Earth"]
 let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
-// Golbar Var ---->
+// Global Var ---->
 
 
 // Document Element Assignments ----|
 //Sections
+const mokeponContainer = document.querySelector(".Mokepon-selection__container")
 const mokeponSelectionSection = document.querySelector(".Mokepon-selection")
 const statsSection = document.querySelector(".Stats")
 const attackSelectionSection = document.querySelector(".Attack-selection")
@@ -58,28 +60,36 @@ const resultMessage = document.querySelector(".Match-message__Result")
 
 
 // Function Definitions ----|
+// Render Mokepons (0).
+function renderMokepons(array) {
+    array.forEach(MokeponOBJ => {
+    mokeponContainer.innerHTML+=`
+    <div>
+        <label for=${MokeponOBJ.name}>${MokeponOBJ.name}</label>
+        <input id=${MokeponOBJ.name} type="radio" name="Mokepon">
+    </div>`
+    });
+}
 // Initial Conditions (1).
 function initialCoinditions() {
+    renderMokepons(mokeponDB)
     mokeponSelectionSection.classList.remove("inactive")
-    statsSection.classList.add("inactive");
-    attackSelectionSection.classList.add("inactive");
-    matchMessageSection.classList.add("inactive");
-    restartSection.classList.add("inactive");
+    statsSection.classList.add("inactive")
+    attackSelectionSection.classList.add("inactive")
+    matchMessageSection.classList.add("inactive")
+    restartSection.classList.add("inactive")
     // ---> OUT
 }
 // Select Mokepon (2).
 function selectMokepon() {
-    if (Hipodoge.checked) {
-        mokeponPlayerSelected = Hipodoge.id
-        selectAttack() // ---> OUT
-    }else if (Capipepo.checked) {
-        mokeponPlayerSelected = Capipepo.id
-        selectAttack() // ---> OUT
-    }else if (Ratigueya.checked) {
-        mokeponPlayerSelected = Ratigueya.id
-        selectAttack() // ---> OUT
-    }else {
-        alert("Choose a Mokepon");
+    mokeponDB.forEach(element => {
+        if (document.querySelector(`#${element.name}`).checked) {
+            mokeponPlayerSelected = element.name
+            selectAttack()
+        }
+    })
+    if (mokeponPlayerSelected===undefined) {
+        alert(resultMessages.Unselected)
     }
 }
 // Select Attack (3).
@@ -89,7 +99,7 @@ function selectAttack() {
     }
     playerStats.innerHTML=playerVitalPoints
     botStats.innerHTML=AIVitalPoints   
-    const botName$=randomItem(Mokepones);
+    const botName$=randomItem(Mokepones)
     for (const iterator of botName) {
         iterator.innerHTML=botName$
     }
@@ -100,7 +110,7 @@ function selectAttack() {
 // Match Result (4).
 function matchResult() {        
     let playerAttackSelected = this.name
-    let AIAttackSelected = randomItem(Attacks);
+    let AIAttackSelected = randomItem(Attacks)
     if ((playerAttackSelected==="Water" && AIAttackSelected==="Fire")||(playerAttackSelected==="Earth" && AIAttackSelected==="Water")||(playerAttackSelected==="Fire" && AIAttackSelected==="Earth")){
         AIVitalPoints--
         resultMessage.innerHTML=resultMessages.won
@@ -116,7 +126,7 @@ function matchResult() {
         attackSelectionSection.classList.add("inactive")
         restartSection.classList.remove("inactive")
     }
-    matchMessageSection.classList.remove("inactive");
+    matchMessageSection.classList.remove("inactive")
     playerAttack.innerHTML=playerAttackSelected
     botAttack.innerHTML=AIAttackSelected
     playerStats.innerHTML=playerVitalPoints
@@ -124,8 +134,8 @@ function matchResult() {
 }
 // Restart Waiting (5).
 function restartGame() {
-    playerVitalPoints = 2;
-    AIVitalPoints = 2;
+    playerVitalPoints = 2
+    AIVitalPoints = 2
     initialCoinditions()
 }
 // Random Item
@@ -177,6 +187,7 @@ FyreRatt.attacks.push(
     {type:"Water 💧", id: "Water-Btn"},
     {type:"Earth 🎍", id: "Earth-Btn"},
 )
+
 // Code Flow ---->
 
 
