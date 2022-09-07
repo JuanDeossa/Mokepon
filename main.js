@@ -3,6 +3,7 @@ let mokeponSelected;
 let playerVitalPoints = 2;
 let botVitalPoints = 2;
 let Attacks = ["Fire","Water","Earth"];
+let botAttackSelected;
 const resultMessages = {
     won: "You Won",
     lose: "You Lose",
@@ -18,6 +19,9 @@ const stats = document.querySelector(".Stats")
 const attackSelection = document.querySelector(".Attack-selection")
 const attackMessage = document.querySelector(".Attack-message")
 const restart = document.querySelector(".Restart")
+//Stats.
+const playerStats = document.querySelector(".Stats__player")
+const botStats = document.querySelector(".Stats__bot")
 //Mokepones.
 const Hipodoge = document.querySelector("#Hipodoge")
 const Capipepo = document.querySelector("#Capipepo")
@@ -27,6 +31,10 @@ const mokeponSubmitBtn = document.querySelector(".Mokepon-selection__btn")
 const fireAttack = document.querySelector(".Attack-selection_Fire")
 const waterAttack = document.querySelector(".Attack-selection_Water")
 const earthAttack = document.querySelector(".Attack-selection_Earth")
+const playerAttack = document.querySelector(".Attack-message__player")
+const botAttack = document.querySelector(".Attack-message__bot")
+//Message
+const resultMessage = document.querySelector(".Attack-message__Result")
 // Document Element Assignments ---->
 
 
@@ -37,6 +45,8 @@ function initialCoinditions() {
     attackSelection.classList.add("inactive");
     attackMessage.classList.add("inactive");
     restart.classList.add("inactive");
+    playerStats.innerHTML=playerVitalPoints
+    botStats.innerHTML=botVitalPoints   
     // ---> OUT
 }
 //Select Mokepon (2).
@@ -53,7 +63,6 @@ function selectMokepon() {
     }else {
         alert("Choose a Mokepon");
     }
-    console.log(mokeponSelected);
 }
 // Select Attack (3).
 function selectAttack() {
@@ -62,21 +71,33 @@ function selectAttack() {
     attackSelection.classList.remove("inactive");// ---> Reset
 }
 // Match Result (4).
-function matchResult() {
-    if ((player==="Water" && bot==="Fire")||(player==="Earth" && bot==="Water")||(player==="Fire" && bot==="Earth")){
-        botVitalPoints--
-        resultMessage.innerHTML=resultMessages.won
-    }
-    if(player===bot){
-        resultMessage.innerHTML=resultMessages.draw
-    }
-    else{
-        playerVitalPoints--
-        resultMessage.innerHTML=resultMessages.lose
-    }
-    attackMessage.classList.remove("inactive");
-    playerStats.innerHTML=playerVitalPoints
-    botStats.innerHTML=botVitalPoints
+function matchResult() {        
+        let player = this.name
+        let bot = randomItem(Attacks);
+        if ((player==="Water" && bot==="Fire")||(player==="Earth" && bot==="Water")||(player==="Fire" && bot==="Earth")){
+            botVitalPoints--
+            resultMessage.innerHTML=resultMessages.won
+        }
+        else if(player===bot){
+            resultMessage.innerHTML=resultMessages.draw
+        }
+        else{
+            playerVitalPoints--
+            resultMessage.innerHTML=resultMessages.lose
+        }
+        if ((playerVitalPoints===0)||(botVitalPoints===0)) {            
+            attackSelection.classList.add("inactive")
+            restart.classList.remove("inactive")
+        }
+        attackMessage.classList.remove("inactive");
+        playerAttack.innerHTML=player
+        botAttack.innerHTML=bot
+        playerStats.innerHTML=playerVitalPoints
+        botStats.innerHTML=botVitalPoints
+}
+// Random Item
+function randomItem(Array) {
+    return Array[Math.floor(Math.random()*Array.length)];
 }
 // Function Definitions ---->
 
