@@ -19,14 +19,14 @@ const resultMessages = {
 }
 //
 let mokeponDB=[]
-let mokeponPlayerSelected;
-let playerVitalPoints = 2
-let mokeponAISelected;
-let AIVitalPoints = 2
+let mokeponPlayerSelected
+let playerVitalPoints
+let mokeponAISelected
+let AIVitalPoints
 let playerAttackSelected
 let AIAttackSelected
 let Attacks = ["Fire","Water","Earth"]
-let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
+// let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
 // Global Var ---->
 
 
@@ -85,6 +85,7 @@ function selectMokepon() {
     mokeponDB.forEach(element => {
         if (document.querySelector(`#${element.name}`).checked) {
             mokeponPlayerSelected = element.name
+            playerVitalPoints = element.lifes
             selectAttack()
         }
     })
@@ -94,14 +95,16 @@ function selectMokepon() {
 }
 // Select Attack (3).
 function selectAttack() {
+    let AISelection = randomItem(mokeponDB.map(function (i) {return [i.name,i.lifes]}))
+    mokeponAISelected=AISelection[0]
+    AIVitalPoints=AISelection[1]
     for (const iterator of playerName) {
         iterator.innerHTML=mokeponPlayerSelected
     }
     playerStats.innerHTML=playerVitalPoints
     botStats.innerHTML=AIVitalPoints   
-    const botName$=randomItem(Mokepones)
     for (const iterator of botName) {
-        iterator.innerHTML=botName$
+        iterator.innerHTML=mokeponAISelected
     }
     mokeponSelectionSection.classList.add("inactive")// ---> Reset
     statsSection.classList.remove("inactive");// ---> Reset
