@@ -1,15 +1,70 @@
+
 // Global Var ----|
 class Mokepon{
-    constructor(name,lifes,attacks,image){
+    constructor(type,name,lifes,attacks,image){
+        this.type=type,
         this.name=name,
         this.lifes=lifes,
         this.attacks=attacks,
         this.image=image
     }
 }
-const HypoDoggo = new Mokepon("HypoDoggo",5,[],"https://i.postimg.cc/v4hyPMsB/Hypo-Doggo.png")
-const GreeMster = new Mokepon("GreeMster",5,[],"https://i.postimg.cc/SXKh35SG/Gree-Mster.png")
-const FyreRatt = new Mokepon("FyreRatt",5,[],"https://i.postimg.cc/d7SYYBDc/FyreRatt.png")
+const HypoDoggo = new Mokepon(
+    "Water",
+    "HypoDoggo",
+    2,
+    [
+    {type:"Water", id: "Water-Btn"},
+    {type:"Water", id: "Water-Btn"},
+    {type:"Water", id: "Water-Btn"},
+    {type:"Earth", id: "Earth-Btn"},
+    {type:"Fire", id: "Fire-Btn"}
+    ],
+    "https://i.postimg.cc/v4hyPMsB/Hypo-Doggo.png"
+)
+
+const GreeMster = new Mokepon(
+    "Earth",
+    "GreeMster",
+    2,
+    [
+    {type:"Earth", id: "Earth-Btn"},
+    {type:"Earth", id: "Earth-Btn"},
+    {type:"Earth", id: "Earth-Btn"},
+    {type:"Fire", id: "Fire-Btn"},
+    {type:"Water", id: "Water-Btn"},
+    ],
+    "https://i.postimg.cc/SXKh35SG/Gree-Mster.png"
+)
+const FyreRatt = new Mokepon(
+    "Fire",
+    "FyreRatt",
+    2,
+    [
+    {type:"Fire", id: "Fire-Btn"},
+    {type:"Fire", id: "Fire-Btn"},
+    {type:"Fire", id: "Fire-Btn"},
+    {type:"Water", id: "Water-Btn"},
+    {type:"Earth", id: "Earth-Btn"},
+    ],
+    "https://i.postimg.cc/d7SYYBDc/FyreRatt.png"
+)
+// const FyreFozz = new Mokepon(
+//     "Fire",
+//     "FyreFozz",
+//     2,
+//     [
+//     {type:"Fire", id: "Fire-Btn"},
+//     {type:"Fire", id: "Fire-Btn"},
+//     {type:"Fire", id: "Fire-Btn"},
+//     {type:"Water", id: "Water-Btn"},
+//     {type:"Fire", id: "Earth-Btn"},
+//     {type:"Earth", id: "Earth-Btn"},
+//     {type:"Earth", id: "Earth-Btn"},
+//     ],
+//     "https://i.postimg.cc/d7SYYBDc/FyreRatt.png"
+// )
+
 const resultMessages = {
     won: "You Won",
     lose: "You Lose",
@@ -18,15 +73,14 @@ const resultMessages = {
     Unselected: "Please, select a Mokepon"
 }
 //
-let mokeponDB=[]
+let mokeponDB=[HypoDoggo,GreeMster,FyreRatt]
+// mokeponDB.push(FyreFozz)
 let mokeponPlayerSelected
 let playerVitalPoints
 let mokeponAISelected
 let AIVitalPoints
 let playerAttackSelected
 let AIAttackSelected
-let Attacks = ["Fire","Water","Earth"]
-// let Mokepones = ["Hipodoge","Capipepo","Ratigueya"]
 // Global Var ---->
 
 
@@ -47,6 +101,7 @@ const Capipepo = document.querySelector("#Capipepo")
 const Ratigueya = document.querySelector("#Ratigueya")
 const mokeponSubmitBtn = document.querySelector(".Mokepon-selection__btn")
 //Attacks
+const attacksContainer = document.querySelector(".Attack-selection__container")
 const fireAttack = document.querySelector(".Attack-selection_Fire")
 const waterAttack = document.querySelector(".Attack-selection_Water")
 const earthAttack = document.querySelector(".Attack-selection_Earth")
@@ -56,6 +111,8 @@ const botAttack = document.querySelector(".Match-message__bot")
 const playerName = document.querySelectorAll(".Player-Name")
 const botName = document.querySelectorAll(".Bot-Name")
 const resultMessage = document.querySelector(".Match-message__Result")
+//Restart
+const restartBtn = document.querySelector(".Restart__button")
 // Document Element Assignments ---->
 
 
@@ -63,11 +120,25 @@ const resultMessage = document.querySelector(".Match-message__Result")
 // Render Mokepons (0).
 function renderMokepons(array) {
     array.forEach(MokeponOBJ => {
-    mokeponContainer.innerHTML+=`
-    <div>
-        <label for=${MokeponOBJ.name}>${MokeponOBJ.name}</label>
-        <input id=${MokeponOBJ.name} type="radio" name="Mokepon">
-    </div>`
+        mokeponContainer.innerHTML+=`
+        <div class="mokepon">
+            <label for=${MokeponOBJ.name}>${MokeponOBJ.name}</label>
+            <input id=${MokeponOBJ.name} type="radio" name="Mokepon">
+        </div>`
+    });
+}
+// Render Attacks (2.5).
+function renderAttacks(array,mokepon) {
+    array.forEach(MokeponOBJ => {
+        if (MokeponOBJ.name===mokepon) {
+            MokeponOBJ.attacks.forEach(element => {
+                let button = (`<button class="Attack-selection__btn Attack-selection_${element.type}" name=${element.type}>${element.type}</button>`)
+                attacksContainer.innerHTML= attacksContainer.innerHTML + button
+            });
+        }
+    });
+    document.querySelectorAll(".Attack-selection__btn").forEach(item => {
+        item.addEventListener("click",matchResult)
     });
 }
 // Initial Conditions (1).
@@ -95,6 +166,7 @@ function selectMokepon() {
 }
 // Select Attack (3).
 function selectAttack() {
+    renderAttacks(mokeponDB,mokeponPlayerSelected)
     let AISelection = randomItem(mokeponDB.map(function (i) {return [i.name,i.lifes]}))
     mokeponAISelected=AISelection[0]
     AIVitalPoints=AISelection[1]
@@ -102,7 +174,7 @@ function selectAttack() {
         iterator.innerHTML=mokeponPlayerSelected
     }
     playerStats.innerHTML=playerVitalPoints
-    botStats.innerHTML=AIVitalPoints   
+    botStats.innerHTML=AIVitalPoints
     for (const iterator of botName) {
         iterator.innerHTML=mokeponAISelected
     }
@@ -111,9 +183,11 @@ function selectAttack() {
     attackSelectionSection.classList.remove("inactive");// ---> Reset
 }
 // Match Result (4).
-function matchResult() {        
-    let playerAttackSelected = this.name
-    let AIAttackSelected = randomItem(Attacks)
+function matchResult() {
+    playerAttackSelected = this.name
+    mokeponDB.forEach(i=>{(mokeponAISelected===i.name)?(AIAttackSelected=i.attacks[Math.floor(Math.random()*(i.attacks.length))].type):""})
+    console.log(playerAttackSelected)
+    console.log(AIAttackSelected)
     if ((playerAttackSelected==="Water" && AIAttackSelected==="Fire")||(playerAttackSelected==="Earth" && AIAttackSelected==="Water")||(playerAttackSelected==="Fire" && AIAttackSelected==="Earth")){
         AIVitalPoints--
         resultMessage.innerHTML=resultMessages.won
@@ -125,9 +199,12 @@ function matchResult() {
         playerVitalPoints--
         resultMessage.innerHTML=resultMessages.lose
     }
-    if ((playerVitalPoints===0)||(AIVitalPoints===0)) {     
+    if ((playerVitalPoints===0)||(AIVitalPoints===0)) {
         attackSelectionSection.classList.add("inactive")
         restartSection.classList.remove("inactive")
+        document.querySelectorAll(".Attack-selection__btn").forEach(element => {
+            document.querySelector(".Attack-selection__container").removeChild(element)
+        })
     }
     matchMessageSection.classList.remove("inactive")
     playerAttack.innerHTML=playerAttackSelected
@@ -137,8 +214,9 @@ function matchResult() {
 }
 // Restart Waiting (5).
 function restartGame() {
-    playerVitalPoints = 2
-    AIVitalPoints = 2
+    document.querySelectorAll(".mokepon").forEach(element => {
+        document.querySelector(".Mokepon-selection__container").removeChild(element)
+    })
     initialCoinditions()
 }
 // Random Item
@@ -151,46 +229,20 @@ function randomItem(Array) {
 // Event listeners ----|
 // Initial Loadpage
 window.addEventListener("load",initialCoinditions)
-// 
-// Mokepon Selection Button 
+//
+// Mokepon Selection Button
 mokeponSubmitBtn.addEventListener("click",selectMokepon)
 //
-// Attack Buttons 
-fireAttack.addEventListener("click",matchResult)
-waterAttack.addEventListener("click",matchResult)
-earthAttack.addEventListener("click",matchResult)
-//
 // Restart Game
-restartSection.addEventListener("click",restartGame) 
+restartBtn.addEventListener("click",restartGame)
 //
 // Event listeners ---->
 
 
 
 // Code Flow ----|
-mokeponDB.push(HypoDoggo,GreeMster,FyreRatt)
-HypoDoggo.attacks.push(
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-)
-GreeMster.attacks.push(
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-)
-FyreRatt.attacks.push(
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Fire  🔥", id: "Fire-Btn"},
-    {type:"Water 💧", id: "Water-Btn"},
-    {type:"Earth 🎍", id: "Earth-Btn"},
-)
 
 // Code Flow ---->
+
 
 
